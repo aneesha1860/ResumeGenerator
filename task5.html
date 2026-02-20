@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Generator</title>
+    <link rel="stylesheet" href="task5.css">
+</head>
+<body>
+   <div class="container">
+        <div class="form-section">
+            <h2>Resume Generator</h2>
+
+            <label>Full Name</label>
+            <input type="text" id="name" placeholder="John Doe">
+
+            <label>Email</label>
+            <input type="email" id="email" placeholder="email@example.com">
+
+            <label>Profile Picture</label>
+            <input type="file" id="profilePic" accept="image/*">
+
+            <label>Skills (comma separated)</label>
+            <textarea id="skills" placeholder="JavaScript, Python, HTML"></textarea>
+
+            <label>Experience (comma separated)</label>
+            <textarea id="experience" placeholder="Software Developer at XYZ, Intern at ABC"></textarea>
+
+            <label>Education (comma separated: Degree | Institution | Year)</label>
+            <textarea id="education" placeholder="BSc Computer Science | ABC University | 2023"></textarea>
+
+
+            <button onclick="generateResume()">Generate Resume</button>
+            <button onclick="downloadPDF()">Download PDF</button>
+        </div>
+
+        <div class="resume-section" id="resume">
+            <div class="resume-header">
+                <img id="r-profile" src="" alt="Profile Picture" style="display:none;">
+                <div>
+                    <h1 id="r-name">Your Name</h1>
+                    <p id="r-email">email@example.com</p>
+                </div>
+            </div>
+
+            <h3>Skills</h3>
+            <ul id="r-skills"></ul>
+
+            <h3>Experience</h3>
+            <ul id="r-experience"></ul>
+
+            <h3>Education</h3>
+            <table id="r-education">
+                <thead>
+                    <tr><th>Degree</th><th>Institution</th><th>Year</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function generateResume() {
+            document.getElementById("r-name").innerText = document.getElementById("name").value;
+            document.getElementById("r-email").innerText = document.getElementById("email").value;
+
+            const profile = document.getElementById("profilePic").files[0];
+            const rProfile = document.getElementById("r-profile");
+            if(profile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    rProfile.src = e.target.result;
+                    rProfile.style.display = "block";
+                }
+                reader.readAsDataURL(profile);
+            }
+
+            const skills = document.getElementById("skills").value.split(",");
+            const rSkills = document.getElementById("r-skills");
+            rSkills.innerHTML = "";
+            skills.forEach(skill => {
+                if(skill.trim() !== "")
+                    rSkills.innerHTML += `<li>${skill.trim()}</li>`;
+            });
+
+            const experience = document.getElementById("experience").value.split(",");
+            const rExp = document.getElementById("r-experience");
+            rExp.innerHTML = "";
+            experience.forEach(exp => {
+                if(exp.trim() !== "")
+                    rExp.innerHTML += `<li>${exp.trim()}</li>`;
+            });
+
+            const education = document.getElementById("education").value.split(",");
+            const rEduBody = document.querySelector("#r-education tbody");
+            rEduBody.innerHTML = "";
+            education.forEach(edu => {
+                const parts = edu.split("|");
+                if(parts.length === 3) {
+                    rEduBody.innerHTML += `<tr>
+                        <td>${parts[0].trim()}</td>
+                        <td>${parts[1].trim()}</td>
+                        <td>${parts[2].trim()}</td>
+                    </tr>`;
+                }
+            });
+
+            const resume = document.getElementById("resume");
+            resume.className = "resume-section " + template;
+        }
+
+        function downloadPDF() {
+            window.print();
+        }
+
+    </script>
+</body>
+</html>

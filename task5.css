@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+body 
+{
+    font-family: "Poppins", Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+
+.container 
+{
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.form-section, .resume-section 
+{
+    background: #fff;
+    padding: 20px;
+    width: 50%;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+label 
+{
+    display: block;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+input, textarea, select 
+{
+    width: 95%;
+    padding: 8px;
+    margin-top: 5px;
+    resize: none;
+}
+
+button 
+{
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.resume-header 
+{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.resume-header img 
+{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+h1
+{
+    margin: 0;
+}
+
+p
+{
+    margin: 0;
+}
+
+table 
+{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td 
+{
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+@media print {
+    body 
+    { 
+        background: none; 
+    }
+    .form-section 
+    { 
+        display: none; 
+    }
+    .resume-section 
+    { 
+        width: 100%; 
+        box-shadow: none; 
+    }
+}
+
+@media (max-width: 500px) {
+    .container 
+    { 
+        flex-direction: column; 
+    }
+    .form-section, .resume-section 
+    {
+        width: 92%; 
+    }
+}
